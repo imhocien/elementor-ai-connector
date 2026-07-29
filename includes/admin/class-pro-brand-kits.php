@@ -123,6 +123,10 @@ class EMCP_Tools_Pro_Brand_Kits {
 		return true;
 	}
 
+	public static function get_bundle() {
+		return new WP_Error( 'no_pro_server', __( 'Pro server not available in this build.', 'emcp-tools' ) );
+	}
+
 	public static function count_cached_kits(): int {
 		if ( ! post_type_exists( 'emcp_kit' ) ) {
 			return 0;
