@@ -80,96 +80,49 @@ define( 'EMCP_TOOLS_BASENAME', plugin_basename( __FILE__ ) );
 require_once EMCP_TOOLS_DIR . 'includes/class-mcp-adapter-bootstrap.php';
 EMCP_Tools_Adapter_Bootstrap::preload_bundled_namespace();
 
+/**
+ * Minimal stub that matches the Freemius SDK's public API so existing
+ * `can_use_premium_code()` / `is_premium()` calls work without loading
+ * the full Freemius SDK. All methods return false/defaults — this fork
+ * has no Pro edition and no license/upgrade flow.
+ */
+if ( ! class_exists( 'EMCP_Tools_FS_Stub' ) ) {
+	class EMCP_Tools_FS_Stub {
+		public function can_use_premium_code(): bool { return false; }
+		public function is_premium(): bool { return false; }
+		public function is__premium_only(): bool { return false; }
+		public function is_paying(): bool { return false; }
+		public function has_active_valid_license(): bool { return false; }
+		public function has_affiliate_program(): bool { return false; }
+		public function is_activation_mode(): bool { return false; }
+		public function add_action( ...$args ): void {}
+		public function add_filter( ...$args ): void {}
+		public function get_upgrade_url(): string { return ''; }
+		public function pricing_url(): string { return ''; }
+		public function get_text_inline( ...$args ): string { return ''; }
+		public function get_module_label( ...$args ): string { return ''; }
+	}
+}
+
 if ( ! function_exists( 'emcp_tools_fs' ) ) {
-	// Create a helper function for easy SDK access.
 	function emcp_tools_fs() {
 		global $emcp_tools_fs;
-
 		if ( ! isset( $emcp_tools_fs ) ) {
-			// Activate multisite network integration.
-			if ( ! defined( 'WP_FS__PRODUCT_30577_MULTISITE' ) ) {
-				define( 'WP_FS__PRODUCT_30577_MULTISITE', true );
-			}
-
-			// Include Freemius SDK.
-			require_once dirname( __FILE__ ) . '/includes/vendors/fremius/start.php';
-
-			// The premium build ships a `.emcp-pro` marker file at the plugin
-			// root; the free build does not. Freemius needs is_premium=true on
-			// the premium build so it shows the LICENSE-ACTIVATION flow (gated
-			// on is_premium()) instead of the free connect/opt-in screen. With
-			// it hardcoded false, the premium zip behaved like the free version
-			// and never offered license activation.
-			$emcp_tools_is_premium = file_exists( dirname( __FILE__ ) . '/.emcp-pro' );
-
-			$emcp_tools_fs = fs_dynamic_init( array(
-				'id'                  => '30577',
-				'slug'                => 'emcp-tools',
-				'premium_slug'        => 'emcp-pro',
-				'type'                => 'plugin',
-				'public_key'          => 'pk_2b2a026d5c27655581635abcd4556',
-				'is_premium'          => $emcp_tools_is_premium,
-				'premium_suffix'      => 'Pro',
-				'has_premium_version' => true,
-				'has_addons'          => false,
-				'has_paid_plans'      => true,
-				'is_org_compliant'    => false,
-				'has_affiliation'     => 'selected',
-				'menu'                => array(
-					'slug'           => 'emcp-tools',
-					'support'        => false,
-				),
-			) );
+			$emcp_tools_fs = new EMCP_Tools_FS_Stub();
 		}
-
 		return $emcp_tools_fs;
 	}
-
-	// Init Freemius.
 	emcp_tools_fs();
-	// Signal that SDK was initiated.
-	do_action( 'emcp_tools_fs_loaded' );
-
-	// Trim the Freemius-injected submenu items we surface elsewhere: Contact Us
-	// (Help & Support lives in the plugin header), Affiliation (shown in the
-	// header next to Changelog), and Pricing for licensed Pro users (free users
-	// keep the upgrade link). Freemius keeps the underlying pages reachable by
-	// URL, so the header links still work.
-	emcp_tools_fs()->add_filter(
-		'is_submenu_visible',
-		function ( $is_visible, $menu_id ) {
-			if ( 'contact' === $menu_id || 'affiliation' === $menu_id ) {
-				return false;
-			}
-			if ( 'pricing' === $menu_id && emcp_tools_fs()->can_use_premium_code() ) {
-				return false;
-			}
-			return $is_visible;
-		},
-		10,
-		2
-	);
 }
 
-// Uninstall cleanup runs via Freemius's after_uninstall action (uninstall.php
-// was removed in v1.6.1 — Freemius rejects builds containing it).
+// Uninstall support (no Freemius).
 require_once EMCP_TOOLS_DIR . 'includes/class-uninstaller.php';
-if ( function_exists( 'emcp_tools_fs' ) ) {
-	emcp_tools_fs()->add_action( 'after_uninstall', array( 'EMCP_Tools_Uninstaller', 'run' ) );
-}
 
 /**
- * Canonical "Upgrade to Pro" URL — the external pricing page on the EMCP Tools
- * website. Used by every upgrade CTA in the plugin admin so users land on the
- * public pricing page (with full plan comparison + FAQ) rather than Freemius's
- * bundled in-admin pricing iframe.
- *
- * @since 1.7.1
- *
- * @return string
+ * Stub — upgrade URL no longer used.
  */
 function emcp_tools_upgrade_url(): string {
-	return 'https://emcptools.com/pricing';
+	return '';
 }
 
 // Hand off to the bootstrap (loads classes + wires hooks) once dependencies

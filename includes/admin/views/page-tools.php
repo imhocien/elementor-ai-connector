@@ -246,12 +246,7 @@ $emcp_tools_badge_labels = array(
 								?>
 							</span>
 						</button>
-						<?php if ( ! empty( $emcp_tools_category['pro'] ) && ! $emcp_tools_is_pro ) : ?>
-							<a class="elementor-mcp-cat-upgrade" href="<?php echo esc_url( $emcp_tools_upgrade_url ); ?>" target="_blank" rel="noopener noreferrer">
-								<span class="dashicons dashicons-star-filled" aria-hidden="true"></span>
-								<?php esc_html_e( 'Requires EMCP Pro, Upgrade', 'emcp-tools' ); ?>
-							</a>
-						<?php endif; ?>
+
 						<?php if ( empty( $emcp_tools_category['pro'] ) || $emcp_tools_is_pro ) : ?>
 							<span class="elementor-mcp-cat-toggle-group" role="group" aria-label="<?php esc_attr_e( 'Toggle all tools in this section', 'emcp-tools' ); ?>">
 								<button type="button" class="elementor-mcp-cat-btn elementor-mcp-cat-enable-all"><?php esc_html_e( 'All', 'emcp-tools' ); ?></button>

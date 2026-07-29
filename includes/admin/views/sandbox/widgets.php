@@ -21,7 +21,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $emcp_tools_wb_pro = class_exists( 'EMCP_Tools_Widget_Store' ) && EMCP_Tools_Widget_Store::user_has_access();
-$emcp_tools_wb_url = function_exists( 'emcp_tools_upgrade_url' ) ? emcp_tools_upgrade_url() : '#';
 
 // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only notice render after a redirect, no state change.
 $emcp_tools_wb_imported = isset( $_GET['imported'] ) ? sanitize_text_field( wp_unslash( $_GET['imported'] ) ) : '';
@@ -57,20 +56,7 @@ $emcp_tools_wb_import_error = isset( $_GET['import_error'] ) ? sanitize_text_fie
 			</div>
 		</div>
 
-		<?php if ( ! $emcp_tools_wb_pro ) : ?>
-
-			<div class="elementor-mcp-pro-cta">
-				<p>
-					<?php esc_html_e( 'The Sandbox is a Pro feature. Upgrade to let AI agents design and ship custom Elementor widgets in an isolated sandbox.', 'emcp-tools' ); ?>
-				</p>
-				<a class="button button-primary" href="<?php echo esc_url( $emcp_tools_wb_url ); ?>" target="_blank" rel="noopener">
-					<?php esc_html_e( 'Upgrade to Pro', 'emcp-tools' ); ?>
-				</a>
-			</div>
-
-		<?php else : ?>
-
-			<?php $emcp_tools_wb_list = EMCP_Tools_Widget_Store::list_widgets( 'any' ); ?>
+		<?php $emcp_tools_wb_list = EMCP_Tools_Widget_Store::list_widgets( 'any' ); ?>
 
 			<div class="notice notice-warning inline" style="margin: 12px 0;">
 				<p>
@@ -204,8 +190,6 @@ $emcp_tools_wb_import_error = isset( $_GET['import_error'] ) ? sanitize_text_fie
 				</script>
 
 			<?php endif; ?>
-
-		<?php endif; ?>
 
 	</div>
 

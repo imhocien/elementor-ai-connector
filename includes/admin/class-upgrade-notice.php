@@ -28,8 +28,7 @@ class EMCP_Tools_Upgrade_Notice {
 	const NONCE_ACTION = 'emcp_tools_dismiss_upgrade_notice';
 
 	public function init(): void {
-		add_action( 'admin_notices', array( $this, 'maybe_render' ) );
-		add_action( 'wp_ajax_emcp_tools_dismiss_upgrade_notice', array( $this, 'ajax_dismiss' ) );
+		// Upgrade notices disabled in this fork.
 	}
 
 	/**

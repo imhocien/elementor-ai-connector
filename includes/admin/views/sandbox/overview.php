@@ -15,8 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$emcp_sb_base_url    = menu_page_url( 'emcp-tools-widgets', false );
-$emcp_sb_upgrade_url = function_exists( 'emcp_tools_upgrade_url' ) ? emcp_tools_upgrade_url() : '#';
+$emcp_sb_base_url = menu_page_url( 'emcp-tools-widgets', false );
 
 /**
  * Splits a store's list into an [active, draft] count pair.

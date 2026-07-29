@@ -195,19 +195,12 @@ class EMCP_Tools_Themer_CPT {
 						. '<p style="margin:0 0 10px;color:#50575e;">%3$s</p>'
 						. '<div style="display:flex;flex-wrap:wrap;gap:6px;">%4$s</div>'
 					. '</div>'
-					. '<div style="flex:0 0 auto;text-align:right;">'
-						. '<a href="%5$s" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;padding:8px 18px;background:%1$s;color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;"><span class="dashicons dashicons-star-filled" style="font-size:15px;width:15px;height:15px;"></span>%6$s</a>'
-						. '<p style="margin:8px 0 0;font-size:12px;color:#787c82;">%7$s</p>'
-					. '</div>'
 				. '</div>'
 			. '</div>',
 			$purple,
-			esc_html__( 'You\'re on EMCP Themer Free', 'emcp-tools' ),
-			esc_html__( 'Free includes 1 template per type with site-wide / post-type / archive conditions. Upgrade to Pro for unlimited templates per type, granular display conditions (specific pages, terms, authors, dates), Exclude rules, and priority ordering.', 'emcp-tools' ),
-			$chips, // Already escaped above.
-			esc_url( function_exists( 'emcp_tools_upgrade_url' ) ? emcp_tools_upgrade_url() : 'https://emcptools.com/pricing' ),
-			esc_html__( 'Upgrade to Pro', 'emcp-tools' ),
-			esc_html__( 'Unlimited templates + conditions', 'emcp-tools' )
+			esc_html__( 'EMCP Themer', 'emcp-tools' ),
+			esc_html__( 'Create headers, footers, single and archive templates with conditions.', 'emcp-tools' ),
+			$chips // Already escaped above.
 		);
 	}
 

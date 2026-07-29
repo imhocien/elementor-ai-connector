@@ -2157,14 +2157,6 @@ class EMCP_Tools_Admin {
 			endif;
 			?>
 
-			<?php
-			// Only show the upgrade CTA to sites without a valid Pro license.
-			// Freemius adds its own Contact / Account / Upgrade items to the
-			// EMCP Tools menu, so we don't need a redundant header link.
-			$emcp_tools_show_upgrade = ! function_exists( 'emcp_tools_fs' )
-				|| ! emcp_tools_fs()->can_use_premium_code();
-			?>
-
 			<!-- App bar -->
 			<div class="emcp-appbar">
 				<div class="emcp-appbar-brand">
@@ -2178,18 +2170,7 @@ class EMCP_Tools_Admin {
 						<span class="dashicons dashicons-backup" aria-hidden="true"></span>
 						<?php esc_html_e( 'Changelog', 'emcp-tools' ); ?>
 					</a>
-					<?php if ( self::affiliation_page_available() ) : ?>
-						<a class="emcp-appbar-changelog" href="<?php echo esc_url( admin_url( 'admin.php?page=' . self::PAGE_SLUG . '-affiliation' ) ); ?>">
-							<span class="dashicons dashicons-money-alt" aria-hidden="true"></span>
-							<?php esc_html_e( 'Affiliate Program', 'emcp-tools' ); ?>
-						</a>
-					<?php endif; ?>
-					<?php if ( $emcp_tools_show_upgrade ) : ?>
-						<a class="emcp-appbar-upgrade" href="<?php echo esc_url( emcp_tools_upgrade_url() ); ?>" target="_blank" rel="noopener noreferrer">
-							<span class="dashicons dashicons-star-filled" aria-hidden="true"></span>
-							<?php esc_html_e( 'Upgrade to Pro', 'emcp-tools' ); ?>
-						</a>
-					<?php endif; ?>
+
 					<div class="emcp-help-menu">
 						<button type="button" class="emcp-help-toggle" aria-haspopup="true">
 							<span class="dashicons dashicons-info-outline" aria-hidden="true"></span>
