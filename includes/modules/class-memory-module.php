@@ -37,7 +37,7 @@ class EMCP_Tools_Memory_Module extends EMCP_Tools_Module {
 			add_action( 'init', array( 'EMCP_Tools_Memory_Store', 'register_post_type' ) );
 		}
 		if ( class_exists( 'EMCP_Tools_Memory_Injector' ) ) {
-			EMCP_Tools_Memory_Injector::inject();
+			EMCP_Tools_Memory_Injector::init();
 		}
 	}
 
