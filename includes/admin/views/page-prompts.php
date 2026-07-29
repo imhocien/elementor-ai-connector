@@ -59,8 +59,6 @@ if ( $emcp_tools_has_pro ) {
 	}
 }
 
-$emcp_tools_upgrade_url = emcp_tools_upgrade_url();
-
 // Legacy (v1) prompt archive: bundled with premium builds only, and streamed
 // through a capability + nonce + license gated admin-post handler.
 $emcp_tools_v1_available = class_exists( 'EMCP_Tools_Pro_Prompts' )

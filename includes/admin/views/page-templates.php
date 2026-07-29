@@ -26,7 +26,6 @@ if ( $emcp_tools_has_pro ) {
 	}
 }
 
-$emcp_tools_upgrade_url = emcp_tools_upgrade_url();
 ?>
 
 <div class="elementor-mcp-templates">
