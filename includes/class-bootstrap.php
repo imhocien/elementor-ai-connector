@@ -346,7 +346,6 @@ class EMCP_Tools_Bootstrap {
 		$emcp_modules->register( new EMCP_Tools_Themer_Module() );
 		$emcp_modules->register( new EMCP_Tools_Agent_Skills_Module() );
 		$emcp_modules->register( new EMCP_Tools_SVG_Support_Module() );
-		$emcp_modules->register( new EMCP_Tools_Memory_Module() );
 		EMCP_Tools_Pro_Loader::register_modules( $emcp_modules );
 		do_action( 'emcp_tools_register_modules', $emcp_modules );
 		$emcp_modules->apply_defaults();
