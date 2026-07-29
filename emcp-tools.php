@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       Elementor AI Connector
- * Plugin URI:        https://hocien.me
+ * Plugin URI:        https://github.com/imhocien/elementor-ai-connector
  * Description:       Extends the WordPress MCP Adapter to expose Elementor data, widgets, and page design tools as MCP tools for AI agents.
  * Version:           1.0.0
  * Requires at least: 6.9
