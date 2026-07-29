@@ -1,0 +1,122 @@
+{
+  "_comment": "Copy-paste MCP configurations for connecting to the MCP Tools for Elementor server. Pick the one that matches your client and environment.",
+
+  "claude_desktop_local_wpcli": {
+    "_description": "Claude Desktop — local WordPress via WP-CLI (fastest, recommended for local dev)",
+    "_config_path_windows": "%APPDATA%\\Claude\\claude_desktop_config.json",
+    "_config_path_macos": "~/Library/Application Support/Claude/claude_desktop_config.json",
+    "mcpServers": {
+      "emcp-tools": {
+        "command": "wp",
+        "args": [
+          "mcp-adapter",
+          "serve",
+          "--server=emcp-tools-server",
+          "--user=admin",
+          "--path=/path/to/wordpress"
+        ]
+      }
+    }
+  },
+
+  "claude_desktop_remote_npx": {
+    "_description": "Claude Desktop — remote WordPress via npx runner (RECOMMENDED for remote/shared hosting; nothing to install or keep in sync)",
+    "_note": "The proxy runs as a LOCAL subprocess on the machine with Claude Desktop. npx fetches it on demand, so there is no file path to maintain. Requires Node.js 18+ locally.",
+    "mcpServers": {
+      "emcp-tools": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@msrbuilds/emcp-proxy@latest"
+        ],
+        "env": {
+          "WP_URL": "https://your-site.com",
+          "WP_USERNAME": "admin",
+          "WP_APP_PASSWORD": "xxxx xxxx xxxx xxxx xxxx xxxx",
+          "MCP_PROTOCOL_VERSION": "2024-11-05"
+        }
+      }
+    }
+  },
+
+  "claude_desktop_remote_proxy_local_copy": {
+    "_description": "Claude Desktop — remote WordPress via a LOCAL copy of the proxy file",
+    "_note": "Claude Desktop launches the proxy locally, so mcp-proxy.mjs must exist on THIS machine, not on the server. Extract bin/mcp-proxy.mjs from the plugin ZIP, save it locally, and point 'args' at that local path. Re-extract after plugin updates to get proxy fixes.",
+    "mcpServers": {
+      "emcp-tools": {
+        "command": "node",
+        "args": [
+          "C:\\local\\path\\to\\mcp-proxy.mjs"
+        ],
+        "env": {
+          "WP_URL": "https://your-site.com",
+          "WP_USERNAME": "admin",
+          "WP_APP_PASSWORD": "xxxx xxxx xxxx xxxx xxxx xxxx",
+          "MCP_PROTOCOL_VERSION": "2024-11-05"
+        }
+      }
+    }
+  },
+
+  "claude_code_remote_npx": {
+    "_description": "Claude Code — remote WordPress via npx runner with protocol version override",
+    "_note": "The npx package runs locally; no file path to maintain. Requires Node.js 18+.",
+    "mcpServers": {
+      "emcp-tools": {
+        "type": "stdio",
+        "command": "npx",
+        "args": [
+          "-y",
+          "@msrbuilds/emcp-proxy@latest"
+        ],
+        "env": {
+          "WP_URL": "https://your-site.com",
+          "WP_USERNAME": "admin",
+          "WP_APP_PASSWORD": "xxxx xxxx xxxx xxxx xxxx xxxx",
+          "MCP_PROTOCOL_VERSION": "2024-11-05",
+          "MCP_LOG_FILE": ""
+        }
+      }
+    }
+  },
+
+  "claude_code_mcp_json": {
+    "_description": "Claude Code — place as .mcp.json in project root",
+    "mcpServers": {
+      "emcp-tools": {
+        "type": "stdio",
+        "command": "wp",
+        "args": [
+          "mcp-adapter",
+          "serve",
+          "--server=emcp-tools-server",
+          "--user=admin",
+          "--path=/path/to/wordpress"
+        ]
+      }
+    }
+  },
+
+  "vscode_mcp_direct_http": {
+    "_description": "VS Code MCP extension — direct HTTP connection (add to VS Code settings)",
+    "servers": {
+      "emcp-tools": {
+        "type": "http",
+        "url": "https://your-site.com/wp-json/mcp/emcp-tools-server",
+        "headers": {
+          "Authorization": "Basic BASE64_OF_USERNAME:APP_PASSWORD"
+        }
+      }
+    }
+  },
+
+  "mcp_inspector_wpcli": {
+    "_description": "MCP Inspector — test and debug tools via WP-CLI",
+    "_command": "npx @modelcontextprotocol/inspector wp mcp-adapter serve --server=emcp-tools-server --user=admin --path=/path/to/wordpress"
+  },
+
+  "mcp_inspector_proxy": {
+    "_description": "MCP Inspector — test and debug tools via HTTP proxy",
+    "_command": "npx @modelcontextprotocol/inspector -e WP_URL=https://your-site.com -e WP_USERNAME=admin -e WP_APP_PASSWORD=xxxx node bin/mcp-proxy.mjs"
+  }
+}

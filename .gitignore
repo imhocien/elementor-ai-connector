@@ -1,0 +1,119 @@
+# Composer: ignore everything under vendor/, then un-ignore ONLY the runtime
+# packages we ship (the MCP adapter + the Jetpack Autoloader). Dev tooling
+# (phpunit, sebastian, nikic, …) stays ignored and is restored by
+# `composer install`. We load vendor/autoload_packages.php at runtime, never
+# vendor/autoload.php, so the standard composer autoload_*.php are NOT shipped.
+/vendor/*
+!/vendor/autoload_packages.php
+!/vendor/automattic/
+!/vendor/jetpack-autoloader/
+!/vendor/wordpress/
+!/vendor/enshrined/
+!/vendor/composer/
+/vendor/composer/*
+!/vendor/composer/InstalledVersions.php
+!/vendor/composer/installed.json
+!/vendor/composer/jetpack_autoload_classmap.php
+!/vendor/composer/jetpack_autoload_filemap.php
+!/vendor/composer/jetpack_autoload_psr4.php
+
+# Within the shipped packages, keep runtime code only — drop test/CI/doc cruft
+# so the zip stays lean (composer install restores them locally; they're just
+# never tracked or shipped).
+/vendor/wordpress/mcp-adapter/tests/
+/vendor/wordpress/mcp-adapter/docs/
+/vendor/wordpress/mcp-adapter/.github/
+/vendor/wordpress/mcp-adapter/*.dist
+/vendor/wordpress/mcp-adapter/phpstan.neon*
+/vendor/wordpress/mcp-adapter/phpcs.xml*
+/vendor/wordpress/php-mcp-schema/tests/
+/vendor/wordpress/php-mcp-schema/generator/
+/vendor/wordpress/php-mcp-schema/.github/
+/vendor/wordpress/php-mcp-schema/*.dist
+/vendor/wordpress/php-mcp-schema/phpstan.neon*
+/vendor/automattic/jetpack-autoloader/tests/
+/vendor/automattic/jetpack-autoloader/.github/
+/vendor/automattic/jetpack-autoloader/*.dist
+
+# Non-runtime metadata inside the shipped packages — lockfiles, package
+# manifests, markdown docs, skill guides. Never loaded at runtime; they only
+# bloat the zip (a 752K Node package-lock.json was the worst offender). LICENSE*
+# is deliberately KEPT for redistribution compliance.
+/vendor/**/package-lock.json
+/vendor/**/package.json
+/vendor/**/composer.lock
+/vendor/**/README*.md
+/vendor/**/README-INITIAL.md
+/vendor/**/CONTRIBUTING*.md
+/vendor/**/SECURITY*.md
+/vendor/**/CHANGELOG*.md
+/vendor/**/CLAUDE.md
+/vendor/**/.wp-env.json
+/vendor/wordpress/php-mcp-schema/skill/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# PHPUnit cache
+.phpunit.cache/
+.phpunit.result.cache
+
+# Claude Code local settings
+.claude/settings.local.json
+.claude/settings.json
+
+#Tests
+releases/*
+skills/*
+#Security
+.mcp.json
+
+#Meta
+# Local-only working docs (superpowers specs/plans, design notes). Never ship
+# to GitHub or the release zip.
+docs/
+.commandcode/
+
+# Pro overlay lives in the private pro/ submodule (see pro-manifest.txt).
+# Anchored so bare entries don't match nested dirs (e.g. vendor Tools/).
+/includes/abilities/class-seo-abilities.php
+/includes/abilities/class-a11y-abilities.php
+/includes/abilities/class-widget-builder-abilities.php
+/includes/abilities/class-system-kit-abilities.php
+/includes/class-color-contrast.php
+/includes/class-content-extractor.php
+/includes/class-seo-meta.php
+/includes/class-widget-generator.php
+/includes/ai-chat/
+/includes/admin/class-pro-prompts.php
+/includes/admin/class-pro-templates.php
+/includes/admin/class-pro-ajax.php
+/includes/admin/class-pro-skills.php
+/includes/admin/class-pro-brand-kits.php
+/includes/admin/views/page-ai-chat.php
+/includes/admin/views/page-skills.php
+/assets/js/ai-chat.js
+/assets/css/ai-chat.css
+/tools/
+
+# Public test-suite cache (tests/phpunit.xml)
+.phpunit.public.cache/
+
+# Playwright MCP + local test artifacts (never committed)
+.playwright-mcp/
+/services-final.png
+/services-page.png
+
+# Freemius deploy secrets — NEVER commit. The API Bearer token / secret key go
+# in .freemius.env (gitignored); pro/tools/freemius-deploy.sh auto-loads it.
+# Only .freemius.env.example (no real values) is tracked.
+.freemius.env
+.freemius.env.local
+freemius.env
