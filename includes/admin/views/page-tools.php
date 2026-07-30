@@ -232,7 +232,7 @@ $emcp_tools_badge_labels = array(
 								<svg viewBox="0 0 20 20" width="14" height="14"><path d="M6 8l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 							</span>
 							<span class="elementor-mcp-category-title"><?php echo esc_html( $emcp_tools_category['label'] ); ?></span>
-							<?php if ( ! empty( $emcp_tools_category['pro'] ) ) : ?>
+							<?php if ( ! empty( $emcp_tools_category['pro'] ) && ! $emcp_tools_is_pro ) : ?>
 								<span class="elementor-mcp-badge elementor-mcp-badge--pro"><?php esc_html_e( 'Pro', 'emcp-tools' ); ?></span>
 							<?php endif; ?>
 							<span class="elementor-mcp-category-count">
@@ -303,6 +303,7 @@ $emcp_tools_badge_labels = array(
 									<span class="elementor-mcp-tool-name">
 										<?php echo esc_html( $emcp_tools_tool['label'] ); ?>
 										<?php foreach ( $emcp_tools_tool['badges'] as $emcp_tools_badge ) : ?>
+											<?php if ( 'pro' === $emcp_tools_badge && $emcp_tools_is_pro ) { continue; } ?>
 											<span class="elementor-mcp-badge elementor-mcp-badge--<?php echo esc_attr( $emcp_tools_badge ); ?>">
 												<?php echo esc_html( $emcp_tools_badge_labels[ $emcp_tools_badge ] ?? $emcp_tools_badge ); ?>
 											</span>

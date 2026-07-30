@@ -2066,17 +2066,6 @@ class EMCP_Tools_Admin {
 			array( 'key' => 'active', 'value' => (int) $this->get_enabled_tool_count(), 'label' => __( 'Active', 'emcp-tools' ) ),
 		);
 
-		// Count Pro tools.
-		$pro_count = 0;
-		foreach ( $this->get_all_tools() as $category ) {
-			foreach ( $category['tools'] as $tool ) {
-				if ( in_array( 'pro', $tool['badges'], true ) || in_array( 'elementor-pro', $tool['badges'], true ) ) {
-					$pro_count++;
-				}
-			}
-		}
-		$stats[] = array( 'key' => 'pro', 'value' => $pro_count, 'label' => __( 'Pro Tools', 'emcp-tools' ) );
-
 		// Count prompts. For Pro sites with a synced bundle, use the actual
 		// premium-library count (matches the Prompts tab). Otherwise count the
 		// bundled sample files in prompts/.
@@ -2963,25 +2952,6 @@ class EMCP_Tools_Admin {
 		// licensed build the category's own availability (e.g. WooCommerce active)
 		// is left untouched, and the abilities themselves stay license-gated.
 		$emcp_is_pro = true;
-		foreach ( $catalog as &$emcp_pro_cat ) {
-			if ( empty( $emcp_pro_cat['pro'] ) || empty( $emcp_pro_cat['tools'] ) ) {
-				continue;
-			}
-			foreach ( $emcp_pro_cat['tools'] as &$emcp_pro_tool ) {
-				if ( empty( $emcp_pro_tool['badges'] ) || ! is_array( $emcp_pro_tool['badges'] ) ) {
-					$emcp_pro_tool['badges'] = array();
-				}
-				if ( ! in_array( 'pro', $emcp_pro_tool['badges'], true ) ) {
-					array_unshift( $emcp_pro_tool['badges'], 'pro' );
-				}
-				if ( ! $emcp_is_pro ) {
-					$emcp_pro_tool['available']        = false;
-					$emcp_pro_tool['unavailable_note'] = __( 'Requires EMCP Pro.', 'emcp-tools' );
-				}
-			}
-			unset( $emcp_pro_tool );
-		}
-		unset( $emcp_pro_cat );
 
 		return $catalog;
 	}
