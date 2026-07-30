@@ -69,14 +69,6 @@ $emcp_features = array(
 		'show'  => true,
 	),
 	array(
-		'icon'  => 'dashicons-format-chat',
-		'title' => __( 'AI Chat', 'emcp-tools' ),
-		'desc'  => __( 'Edit pages by chatting with AI right inside the Elementor and Gutenberg editors.', 'emcp-tools' ),
-		'href'  => admin_url( 'admin.php?page=' . $emcp_page . '-ai-chat' ),
-		'pro'   => true,
-		'show'  => $this->ai_chat_tab_visible(),
-	),
-	array(
 		'icon'  => 'dashicons-layout',
 		'title' => __( 'EMCP Themer', 'emcp-tools' ),
 		'desc'  => __( 'Build headers, footers, and dynamic layouts with any page builder, assigned by display conditions.', 'emcp-tools' ),
@@ -104,14 +96,6 @@ $emcp_features = array(
 		'href'  => admin_url( 'admin.php?page=' . $emcp_page . '-templates' ),
 		'pro'   => true,
 		'show'  => $this->module_tab_visible( 'templates' ),
-	),
-	array(
-		'icon'  => 'dashicons-superhero',
-		'title' => __( 'Skills', 'emcp-tools' ),
-		'desc'  => __( 'Install Claude Code skills that teach your AI how to build with this plugin like an expert.', 'emcp-tools' ),
-		'href'  => admin_url( 'admin.php?page=' . $emcp_page . '-skills' ),
-		'pro'   => true,
-		'show'  => true,
 	),
 	array(
 		'icon'  => 'dashicons-editor-code',

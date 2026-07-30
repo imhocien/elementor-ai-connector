@@ -173,12 +173,9 @@ class EMCP_Tools_Admin {
 				self::PAGE_SLUG . '-history'    => __( 'History', 'emcp-tools' ),
 				self::PAGE_SLUG . '-changelog'  => __( 'Changelog', 'emcp-tools' ),
 			);
-			if ( ! $this->ai_chat_tab_visible() ) {
-				unset( $this->submenus[ self::PAGE_SLUG . '-ai-chat' ] );
-			}
-			if ( ! $this->memory_tab_visible() ) {
-				unset( $this->submenus[ self::PAGE_SLUG . '-memory' ] );
-			}
+			unset( $this->submenus[ self::PAGE_SLUG . '-ai-chat' ] );
+			unset( $this->submenus[ self::PAGE_SLUG . '-memory' ] );
+			unset( $this->submenus[ self::PAGE_SLUG . '-skills' ] );
 			// Module-backed tabs: drop each when its module is off/unavailable.
 			foreach ( array( 'prompts', 'templates', 'brand-kits' ) as $emcp_mod_id ) {
 				if ( ! $this->module_tab_visible( $emcp_mod_id ) ) {
@@ -2210,34 +2207,14 @@ class EMCP_Tools_Admin {
 					include EMCP_TOOLS_DIR . 'includes/admin/views/page-modules.php';
 				} elseif ( 'connection' === $active_tab ) {
 					include EMCP_TOOLS_DIR . 'includes/admin/views/page-connection.php';
-				} elseif ( 'ai-chat' === $active_tab && $this->ai_chat_tab_visible() ) {
-					$emcp_pro_view = EMCP_Tools_Pro_Loader::path( 'includes/admin/views/page-ai-chat.php' );
-					if ( '' !== $emcp_pro_view ) {
-						include $emcp_pro_view;
-					} else {
-						include EMCP_TOOLS_DIR . 'includes/admin/views/page-ai-chat-upsell.php';
-					}
 				} elseif ( 'context' === $active_tab ) {
 					include EMCP_TOOLS_DIR . 'includes/admin/views/page-context.php';
-				} elseif ( 'memory' === $active_tab && $this->memory_tab_visible() ) {
-					$emcp_mem_view = EMCP_Tools_Pro_Loader::path( 'includes/admin/views/page-memory.php' );
-					if ( '' !== $emcp_mem_view ) {
-						include $emcp_mem_view;
-					}
 				} elseif ( 'prompts' === $active_tab && $this->module_tab_visible( 'prompts' ) ) {
 					include EMCP_TOOLS_DIR . 'includes/admin/views/page-prompts.php';
 				} elseif ( 'templates' === $active_tab && $this->module_tab_visible( 'templates' ) ) {
 					include EMCP_TOOLS_DIR . 'includes/admin/views/page-templates.php';
 				} elseif ( 'brand-kits' === $active_tab && $this->module_tab_visible( 'brand-kits' ) ) {
 					include EMCP_TOOLS_DIR . 'includes/admin/views/page-brand-kits.php';
-				} elseif ( 'skills' === $active_tab ) {
-					$emcp_pro_view = EMCP_Tools_Pro_Loader::path( 'includes/admin/views/page-skills.php' );
-					if ( '' !== $emcp_pro_view ) {
-						include $emcp_pro_view;
-					} else {
-						$emcp_upsell_feature = __( 'Skills', 'emcp-tools' );
-						include EMCP_TOOLS_DIR . 'includes/admin/views/page-pro-upsell.php';
-					}
 				} elseif ( 'history' === $active_tab ) {
 					include EMCP_TOOLS_DIR . 'includes/admin/views/page-history.php';
 				} elseif ( 'widgets' === $active_tab ) {
