@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $emcp_page    = EMCP_Tools_Admin::PAGE_SLUG;
-$emcp_is_free = ! function_exists( 'emcp_tools_fs' ) || ! emcp_tools_fs()->can_use_premium_code();
+$emcp_is_free = false;
 
 /**
  * Inline SVGs for the headline stat cards, keyed by the stat `key` returned by

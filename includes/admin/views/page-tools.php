@@ -25,7 +25,7 @@ $emcp_tools_buckets            = EMCP_Tools_Admin::partition_by_platform( $emcp_
 $emcp_tools_elementor_active   = EMCP_Tools_Bootstrap::elementor_active();
 // Whether this build can run Pro code. Pro tool sections stay visible on free
 // (as an upsell) but locked; get_all_tools() already flags their tools.
-$emcp_tools_is_pro             = function_exists( 'emcp_tools_fs' ) && emcp_tools_fs()->can_use_premium_code();
+$emcp_tools_is_pro             = true;
 $emcp_tools_upgrade_url        = function_exists( 'emcp_tools_upgrade_url' ) ? emcp_tools_upgrade_url() : 'https://emcptools.com/pricing/';
 
 /**

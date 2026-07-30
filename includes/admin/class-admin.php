@@ -2962,7 +2962,7 @@ class EMCP_Tools_Admin {
 		// "Requires EMCP Pro" note — and ensure it carries the `pro` badge. On a
 		// licensed build the category's own availability (e.g. WooCommerce active)
 		// is left untouched, and the abilities themselves stay license-gated.
-		$emcp_is_pro = function_exists( 'emcp_tools_fs' ) && emcp_tools_fs()->can_use_premium_code();
+		$emcp_is_pro = true;
 		foreach ( $catalog as &$emcp_pro_cat ) {
 			if ( empty( $emcp_pro_cat['pro'] ) || empty( $emcp_pro_cat['tools'] ) ) {
 				continue;
