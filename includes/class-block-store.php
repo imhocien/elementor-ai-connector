@@ -7,6 +7,10 @@ class EMCP_Tools_Block_Store {
 
 	const POST_TYPE = 'emcp_block';
 
+	public static function user_has_access(): bool {
+		return current_user_can( 'manage_options' );
+	}
+
 	public static function register_post_type(): void {
 		register_post_type(
 			self::POST_TYPE,
