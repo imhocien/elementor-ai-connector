@@ -7,6 +7,15 @@ class EMCP_Tools_Block_Store {
 
 	const POST_TYPE = 'emcp_block';
 
+	private static $instance = null;
+
+	public static function instance(): self {
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
+	}
+
 	public static function user_has_access(): bool {
 		return current_user_can( 'manage_options' );
 	}
@@ -83,6 +92,10 @@ class EMCP_Tools_Block_Store {
 		}
 
 		return $blocks;
+	}
+
+	public static function list_blocks( string $status = 'any' ): array {
+		return self::list();
 	}
 
 	public static function write_block( int $post_id, array $spec ) {
