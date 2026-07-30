@@ -28,6 +28,10 @@ class EMCP_Tools_Memory_Store {
 	 *
 	 * @since 3.7.0
 	 */
+	public static function user_has_access(): bool {
+		return current_user_can( 'manage_options' );
+	}
+
 	public static function register_post_type(): void {
 		register_post_type(
 			self::POST_TYPE,
